@@ -18,11 +18,6 @@ class ProfileController extends Controller
 {
     protected $userService;
 
-    /**
-     * Inject UserService into the controller.
-     *
-     * @param UserService $userService
-     */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
@@ -59,9 +54,8 @@ class ProfileController extends Controller
      *     )
      * )
      *
-     * @param UpdateProfileRequest $request
-     * @return \Illuminate\Http\JsonResponse
      */
+
     public function update(UpdateProfileRequest $request)
     {
         $user = $this->userService->updateProfile($request->user(), $request->validated());
@@ -85,9 +79,8 @@ class ProfileController extends Controller
      *     )
      * )
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
      */
+
     public function delete(Request $request)
     {
         $this->userService->deleteAccount($request->user());
