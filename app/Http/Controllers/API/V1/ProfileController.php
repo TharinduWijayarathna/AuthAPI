@@ -9,9 +9,18 @@ use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
 /**
+ *
  * @OA\Tag(
  *     name="Profile",
  *     description="API Endpoints for User Profile Management"
+ * )
+ *
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT",
+ *     description="Use the format 'Bearer <token>' for authorization."
  * )
  */
 class ProfileController extends Controller
@@ -24,26 +33,31 @@ class ProfileController extends Controller
     }
 
     /**
-     * Get user profile.
+     * Get details of the logged-in user.
      *
      * @OA\Get(
      *     path="/api/v1/profile",
      *     tags={"Profile"},
      *     summary="Get user profile",
-     *     security={{"sanctum":{}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="User profile retrieved successfully",
      *         @OA\JsonContent(
-     *             @OA\Property(property="user", type="object",
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="name", type="string", example="John Doe"),
-     *                 @OA\Property(property="email", type="string", example="john.doe@example.com"),
-     *                @OA\Property(property="created_at", type="string", format="date-time", example="2024-01-01T00:00:00Z"),
-     *                @OA\Property(property="updated_at", type="string", format="date-time", example="2024-01-01T00:00:00Z")
-     *            )
-     *       )
-     *   )
+     *             @OA\Property(property="id", type="integer", example=1),
+     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="email", type="string", example="john@example.com"),
+     *             @OA\Property(property="created_at", type="string", format="date-time", example="2024-01-01T00:00:00Z"),
+     *             @OA\Property(property="updated_at", type="string", format="date-time", example="2024-01-01T00:00:00Z")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Unauthenticated.")
+     *         )
+     *     )
      * )
      */
     public function get(Request $request)
@@ -59,7 +73,7 @@ class ProfileController extends Controller
      *     path="/api/v1/profile",
      *     tags={"Profile"},
      *     summary="Update user profile",
-     *     security={{"sanctum":{}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -80,11 +94,13 @@ class ProfileController extends Controller
      *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2024-01-01T00:00:00Z")
      *             )
      *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request data"
      *     )
      * )
-     *
      */
-
     public function update(UpdateProfileRequest $request)
     {
         $user = $this->userService->updateProfile($request->user(), $request->validated());
@@ -98,18 +114,23 @@ class ProfileController extends Controller
      *     path="/api/v1/profile",
      *     tags={"Profile"},
      *     summary="Delete user account",
-     *     security={{"sanctum":{}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="Account deleted successfully",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Account deleted successfully.")
      *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Unauthenticated.")
+     *         )
      *     )
      * )
-     *
      */
-
     public function delete(Request $request)
     {
         $this->userService->deleteAccount($request->user());

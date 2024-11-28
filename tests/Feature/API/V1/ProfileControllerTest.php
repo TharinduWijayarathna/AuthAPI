@@ -12,6 +12,17 @@ class ProfileControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_get_profile_success()
+    {
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $response = $this->getJson('/api/v1/profile');
+
+        $response->assertStatus(200)
+            ->assertJson(['user' => $user->toArray()]);
+    }
+
     public function test_update_profile_success()
     {
         $user = User::factory()->create();
