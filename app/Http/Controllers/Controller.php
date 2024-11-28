@@ -13,6 +13,14 @@ use Illuminate\Routing\Controller as BaseController;
  *     version="1.0.0",
  *     description="Swagger documentation for PatPat API",
  * )
+ *
+ *  @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT",
+ *     description="Use the format 'Bearer <token>' for authorization."
+ * )
  */
 
 class Controller extends BaseController

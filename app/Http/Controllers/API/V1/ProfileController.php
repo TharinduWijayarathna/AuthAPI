@@ -9,18 +9,9 @@ use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
 /**
- *
  * @OA\Tag(
  *     name="Profile",
  *     description="API Endpoints for User Profile Management"
- * )
- *
- * @OA\SecurityScheme(
- *     securityScheme="bearerAuth",
- *     type="http",
- *     scheme="bearer",
- *     bearerFormat="JWT",
- *     description="Use the format 'Bearer <token>' for authorization."
  * )
  */
 class ProfileController extends Controller
