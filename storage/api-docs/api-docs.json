@@ -11,9 +11,10 @@
                 "tags": [
                     "Authentication"
                 ],
-                "summary": "Register user",
+                "summary": "Register a new user",
                 "operationId": "e6820a70bd152640eefa0af0016b3d3b",
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -25,19 +26,20 @@
                                 ],
                                 "properties": {
                                     "name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "John Doe"
                                     },
                                     "email": {
                                         "type": "string",
-                                        "format": "email"
+                                        "example": "john.doe@example.com"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "format": "password"
+                                        "example": "password"
                                     },
                                     "password_confirmation": {
                                         "type": "string",
-                                        "format": "password"
+                                        "example": "password"
                                     }
                                 },
                                 "type": "object"
@@ -47,7 +49,43 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "User created"
+                        "description": "User registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john.doe@example.com"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-01T00:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-01T00:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -57,9 +95,10 @@
                 "tags": [
                     "Authentication"
                 ],
-                "summary": "User login",
+                "summary": "Login an existing user",
                 "operationId": "bab3fbc2592f5537c990acc6071592fa",
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -70,11 +109,11 @@
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "format": "email"
+                                        "example": "john.doe@example.com"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "format": "password"
+                                        "example": "password"
                                     }
                                 },
                                 "type": "object"
@@ -84,7 +123,20 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Login successful"
+                        "description": "User logged in successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "example.jwt.token"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -94,11 +146,24 @@
                 "tags": [
                     "Authentication"
                 ],
-                "summary": "Logout user",
+                "summary": "Logout the authenticated user",
                 "operationId": "1a307e1f34681659d83cf736528e39aa",
                 "responses": {
                     "200": {
-                        "description": "Logged out"
+                        "description": "User logged out successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -113,9 +178,11 @@
                 "tags": [
                     "Profile"
                 ],
-                "summary": "Update profile",
+                "summary": "Update user profile",
+                "description": "Update user profile.",
                 "operationId": "c51fbed1f6c7fc462c5b6d403a3d86d2",
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -125,11 +192,12 @@
                                 ],
                                 "properties": {
                                     "name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "John Doe"
                                     },
                                     "email": {
                                         "type": "string",
-                                        "format": "email"
+                                        "example": "john.doe@example.com"
                                     }
                                 },
                                 "type": "object"
@@ -139,7 +207,43 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Profile updated"
+                        "description": "Profile updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john.doe@example.com"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-01T00:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-01T00:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -152,11 +256,25 @@
                 "tags": [
                     "Profile"
                 ],
-                "summary": "Delete account",
+                "summary": "Delete user account",
+                "description": "Delete user account.",
                 "operationId": "20089ee93b0a8a762d05b2350e85590f",
                 "responses": {
                     "200": {
-                        "description": "Account deleted"
+                        "description": "Account deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Account deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
