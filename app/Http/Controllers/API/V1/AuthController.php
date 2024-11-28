@@ -27,31 +27,18 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/api/v1/auth/register",
-     *     tags={"Authentication"},
-     *     summary="Register a new user",
+     *   tags={"Authentication"},
+     *     summary="Register user",
      *     @OA\RequestBody(
-     *         required=true,
      *         @OA\JsonContent(
      *             required={"name","email","password","password_confirmation"},
-     *             @OA\Property(property="name", type="string", example="John Doe"),
-     *             @OA\Property(property="email", type="string", example="john.doe@example.com"),
-     *             @OA\Property(property="password", type="string", example="password"),
-     *             @OA\Property(property="password_confirmation", type="string", example="password")
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string", format="email"),
+     *             @OA\Property(property="password", type="string", format="password"),
+     *             @OA\Property(property="password_confirmation", type="string", format="password")
      *         )
      *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="User registered successfully",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="user", type="object",
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="name", type="string", example="John Doe"),
-     *                 @OA\Property(property="email", type="string", example="john.doe@example.com"),
-     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2024-01-01T00:00:00Z"),
-     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2024-01-01T00:00:00Z")
-     *             )
-     *         )
-     *     )
+     *     @OA\Response(response=201, description="User created")
      * )
      */
     public function register(RegisterRequest $request)
@@ -63,23 +50,16 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/api/v1/auth/login",
-     *     tags={"Authentication"},
-     *     summary="Login an existing user",
+     *    tags={"Authentication"},
+     *     summary="User login",
      *     @OA\RequestBody(
-     *         required=true,
      *         @OA\JsonContent(
      *             required={"email","password"},
-     *             @OA\Property(property="email", type="string", example="john.doe@example.com"),
-     *             @OA\Property(property="password", type="string", example="password")
+     *             @OA\Property(property="email", type="string", format="email"),
+     *             @OA\Property(property="password", type="string", format="password")
      *         )
      *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="User logged in successfully",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="token", type="string", example="example.jwt.token")
-     *         )
-     *     )
+     *     @OA\Response(response=200, description="Login successful")
      * )
      */
     public function login(LoginRequest $request)
@@ -91,16 +71,10 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/api/v1/auth/logout",
-     *     tags={"Authentication"},
-     *     summary="Logout the authenticated user",
+     *    tags={"Authentication"},
+     *     summary="Logout user",
      *     security={{"sanctum":{}}},
-     *     @OA\Response(
-     *         response=200,
-     *         description="User logged out successfully",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Logged out successfully.")
-     *         )
-     *     )
+     *     @OA\Response(response=200, description="Logged out")
      * )
      */
     public function logout(Request $request)
