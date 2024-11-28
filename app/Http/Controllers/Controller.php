@@ -9,9 +9,9 @@ use Illuminate\Routing\Controller as BaseController;
 
 /**
  * @OA\Info(
- *     title="PatPat Authentication API",
+ *     title="PatPat API",
  *     version="1.0.0",
- *     description="Swagger documentation for PatPat Authentication API",
+ *     description="Swagger documentation for PatPat API",
  * )
  */
 
