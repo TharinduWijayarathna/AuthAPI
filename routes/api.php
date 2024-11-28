@@ -12,6 +12,7 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'get']);
         Route::put('/profile', [ProfileController::class, 'update']);
         Route::delete('/profile', [ProfileController::class, 'delete']);
     });

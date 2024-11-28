@@ -8,6 +8,11 @@ use Illuminate\Validation\ValidationException;
 
 class UserService
 {
+    public function getProfile(User $user): User
+    {
+        return $user;
+    }
+
     public function register(array $data): User
     {
         return User::create([
@@ -41,6 +46,3 @@ class UserService
         $user->delete();
     }
 }
-
-
-?>
